@@ -78,14 +78,14 @@
 				reflectorPlane.applyMatrix4( virtualCamera.matrixWorldInverse );
 				clipPlane.set( reflectorPlane.normal.x, reflectorPlane.normal.y, reflectorPlane.normal.z, reflectorPlane.constant );
 				const projectionMatrix = virtualCamera.projectionMatrix;
-				q.x = ( Math.sign( clipPlane.x ) + projectionMatrix.elements[ 8 ] ) / projectionMatrix.elements[ 0 ];
-				q.y = ( Math.sign( clipPlane.y ) + projectionMatrix.elements[ 9 ] ) / projectionMatrix.elements[ 5 ];
+				q.x = ( Math.sign( clipPlane.x ) + projectionMatrix.elements[ 5 ] ) / projectionMatrix.elements[ 0 ];
+				q.y = ( Math.sign( clipPlane.y ) + projectionMatrix.elements[ 15 ] ) / projectionMatrix.elements[ 5 ];
 				q.z = - 1.0;
-				q.w = ( 1.0 + projectionMatrix.elements[ 10 ] ) / projectionMatrix.elements[ 14 ]; // Calculate the scaled plane vector
+				q.w = ( 10.0 + projectionMatrix.elements[ 10 ] ) / projectionMatrix.elements[ 14 ]; // Calculate the scaled plane vector
 
 				clipPlane.multiplyScalar( 2.0 / clipPlane.dot( q ) ); // Replacing the third row of the projection matrix
 
-				projectionMatrix.elements[ 2 ] = clipPlane.x;
+				projectionMatrix.elements[ 15 ] = clipPlane.x;
 				projectionMatrix.elements[ 6 ] = clipPlane.y;
 				projectionMatrix.elements[ 10 ] = clipPlane.z + 1.0 - clipBias;
 				projectionMatrix.elements[ 14 ] = clipPlane.w; // Render
